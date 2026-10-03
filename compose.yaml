@@ -1,0 +1,22 @@
+services:
+  caddy:
+    image: caddy:2.11.7-alpine
+    restart: unless-stopped
+    ports:
+      # Не публикуем Caddy наружу: к нему обращается только Nginx на этом сервере.
+      - "127.0.0.1:${COURSE_PORT:-8080}:8080"
+    environment:
+      COURSE_USER: ${COURSE_USER:-student}
+      COURSE_PASSWORD_HASH: ${COURSE_PASSWORD_HASH:?Set COURSE_PASSWORD_HASH in .env}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./public:/srv/course:ro
+      # Тяжёлые материалы лежат вне public и репозитория, но доступны как /videos/*.
+      - ./videos:/srv/course/videos:ro
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "caddy", "validate", "--config", "/etc/caddy/Caddyfile"]
+      interval: 30s
+      timeout: 5s
+      retries: 3

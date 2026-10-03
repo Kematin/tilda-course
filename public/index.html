@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Личная страница уютного учебного курса с сохранением прогресса.">
+  <meta name="color-scheme" content="light dark">
+  <title>Уютный курс</title>
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Перейти к содержанию</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="./index.html" aria-label="Уютный курс — на главную">
+        <span class="brand-mark" aria-hidden="true">✦</span>
+        <span>Уютный курс</span>
+      </a>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Включить тёмную тему">
+        <span class="theme-toggle-icon" aria-hidden="true">☾</span>
+        <span class="theme-toggle-text">Тёмная тема</span>
+      </button>
+    </div>
+    <nav class="module-nav" aria-label="Навигация по модулям">
+      <div class="module-nav-list" data-module-nav></div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="home-hero" aria-labelledby="course-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Твоё пространство для роста</p>
+        <h1 id="course-title">Учись в своём ритме.<br><span>У тебя всё получится.</span></h1>
+        <p class="hero-description">Десять небольших шагов, понятный прогресс и немного поддержки после каждого урока.</p>
+      </div>
+      <div class="overall-progress-card" aria-labelledby="overall-progress-title">
+        <div class="progress-ring" data-progress-ring aria-hidden="true">
+          <span data-overall-percent>0%</span>
+        </div>
+        <div>
+          <p class="progress-kicker">Общий прогресс</p>
+          <h2 id="overall-progress-title" data-overall-count>Завершено 0 из 0 уроков</h2>
+          <p class="progress-note" data-progress-note>Самое время начать ✨</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="modules-section" aria-labelledby="modules-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Программа курса</p>
+          <h2 id="modules-title">Все модули</h2>
+        </div>
+        <button class="button button-ghost button-danger" type="button" data-reset-progress>Сбросить прогресс</button>
+      </div>
+      <div class="module-grid" data-module-grid></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Сделано с заботой о твоём темпе <span aria-hidden="true">♡</span></p>
+  </footer>
+
+  <script type="module" src="./js/theme.js"></script>
+  <script type="module" src="./js/index.js"></script>
+</body>
+</html>

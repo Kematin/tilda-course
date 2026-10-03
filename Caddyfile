@@ -1,0 +1,32 @@
+{
+	# HTTPS завершает внешний Nginx. Caddy доступен только через локальный порт Docker.
+	auto_https off
+}
+
+:8359 {
+	root * /srv/course
+
+	# Один логин защищает и страницы, и видео. Пароль в .env хранится только как хеш.
+	basic_auth {
+		{$COURSE_USER} {$COURSE_PASSWORD_HASH}
+	}
+
+	header {
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+	}
+
+	@videos path /videos/*
+	header @videos Cache-Control "private, max-age=3600"
+
+	@assets path /css/* /js/* /assets/*
+	header @assets Cache-Control "private, max-age=3600"
+
+	file_server {
+		hide .gitkeep
+	}
+
+	log
+}
