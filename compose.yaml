@@ -12,7 +12,7 @@ services:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - ./public:/srv/course:ro
       # Тяжёлые материалы лежат вне public и репозитория, но доступны как /videos/*.
-      - ./videos:/srv/course/videos:ro
+      - ./videos:/srv/media:ro
     security_opt:
       - no-new-privileges:true
     healthcheck:

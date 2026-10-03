@@ -3,9 +3,7 @@
 	auto_https off
 }
 
-:8359 {
-	root * /srv/course
-
+:8080 {
 	# Один логин защищает и страницы, и видео. Пароль в .env хранится только как хеш.
 	basic_auth {
 		{$COURSE_USER} {$COURSE_PASSWORD_HASH}
@@ -18,14 +16,21 @@
 		Permissions-Policy "camera=(), microphone=(), geolocation=()"
 	}
 
-	@videos path /videos/*
-	header @videos Cache-Control "private, max-age=3600"
-
 	@assets path /css/* /js/* /assets/*
 	header @assets Cache-Control "private, max-age=3600"
 
-	file_server {
-		hide .gitkeep
+	# /videos/* снимается с URL и обслуживается из отдельного read-only mount.
+	handle_path /videos/* {
+		root * /srv/media
+		header Cache-Control "private, max-age=3600"
+		file_server
+	}
+
+	handle {
+		root * /srv/course
+		file_server {
+			hide .gitkeep
+		}
 	}
 
 	log
